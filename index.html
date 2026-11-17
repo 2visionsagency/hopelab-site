@@ -16,31 +16,82 @@ a{color:inherit;text-decoration:none}
  background:linear-gradient(180deg,#FFE45C 0%,var(--jaune) 50%,var(--or) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 .bandeau{display:inline-block;font-family:Anton,sans-serif;text-transform:uppercase;background:var(--rouge);color:#fff;
  padding:.12em .45em;transform:rotate(-1.5deg);box-shadow:0 6px 0 rgba(0,0,0,.35);letter-spacing:.02em}
-nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;
- background:rgba(9,9,11,.85);backdrop-filter:blur(10px);border-bottom:1px solid #222}
-.logo{font-family:Anton;font-size:24px;letter-spacing:.04em}
+header.top{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;gap:20px;
+ padding:18px 32px;transition:background .3s,padding .3s,border-color .3s;border-bottom:1px solid transparent}
+header.top.plein{background:rgba(9,9,11,.92);backdrop-filter:blur(12px);border-color:#222;padding:12px 32px}
+.logo{font-family:Anton;font-size:26px;letter-spacing:.04em;line-height:1}
 .logo span{color:var(--jaune)}
-.menu{display:flex;gap:18px;font-weight:600;font-size:14px}
-.menu a{opacity:.75}.menu a.actif,.menu a:hover{opacity:1;color:var(--jaune)}
+.droite{display:flex;align-items:center;gap:28px}
+.menu{display:flex;align-items:center;gap:30px;font-weight:700;font-size:14px}
+.menu>a,.menu .dd>button{color:#fff;opacity:.92;transition:color .2s;background:none;border:0;font:inherit;cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 0}
+.menu>a.actif,.menu>a:hover,.menu .dd>button:hover,.menu .dd.actif>button{color:var(--jaune);opacity:1}
+.chev{width:10px;height:10px;transition:transform .2s}
+.dd{position:relative}
+.dd-list{position:absolute;top:100%;left:-14px;min-width:220px;padding:8px;background:#0e0e11;border:1.5px solid var(--jaune);border-radius:8px;
+ display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateY(6px);transition:.2s;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.dd:hover .dd-list,.dd:focus-within .dd-list{opacity:1;visibility:visible;transform:none}
+.dd:hover .chev{transform:rotate(180deg)}
+.dd-list a{padding:9px 12px;border-radius:5px;font-weight:600;font-size:13px}
+.dd-list a:hover{background:#1c1c21;color:var(--jaune)}
+.icones{display:flex;align-items:center;gap:6px;padding-left:22px;border-left:1px solid rgba(255,255,255,.18)}
+.ico{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:#fff;transition:.2s;position:relative}
+.ico:hover{background:rgba(255,255,255,.1);color:var(--jaune)}
+.ico svg{width:19px;height:19px}
+.ico.panier{background:var(--jaune);color:var(--noir)}.ico.panier:hover{background:#fff;color:var(--noir)}
+.burger{display:none;background:none;border:0;color:#fff;font:700 14px Montserrat;cursor:pointer;align-items:center;gap:8px}
+.burger i{display:block;width:20px;height:2px;background:currentColor;box-shadow:0 6px 0 currentColor,0 -6px 0 currentColor}
+.promo{background:var(--jaune);color:var(--noir);text-align:center;font-weight:800;font-size:13px;padding:8px 16px;position:relative;z-index:31}
+.promo a{text-decoration:underline}
+@media(max-width:960px){
+ header.top,header.top.plein{padding:14px 18px}
+ .burger{display:flex}.icones{border:0;padding:0}
+ .menu{position:fixed;inset:0;background:#09090b;flex-direction:column;justify-content:center;gap:22px;font-size:22px;
+  opacity:0;visibility:hidden;transition:.25s;z-index:-1}
+ body.menu-ouvert .menu{opacity:1;visibility:visible}
+ .dd-list{position:static;opacity:1;visibility:visible;transform:none;border:0;background:none;box-shadow:none;align-items:center;padding:4px 0 0;min-width:0}
+ .dd-list a{font-size:15px;color:#bbb}.dd>button{margin:0 auto}
+ .icones .ico:not(.panier){display:none}
+}
 .btn{display:inline-block;font-family:Anton;text-transform:uppercase;letter-spacing:.04em;font-size:18px;background:var(--jaune);color:var(--noir);
  padding:14px 26px;border:none;cursor:pointer;transition:.2s;border-radius:2px}
 .btn:hover{transform:translateY(-2px);box-shadow:0 8px 0 var(--rouge)}
 .btn.rouge{background:var(--rouge);color:#fff}.btn.rouge:hover{box-shadow:0 8px 0 var(--jaune)}
 .btn.ghost{background:transparent;color:var(--blanc);border:2px solid var(--blanc)}
 section.vue{display:none}section.vue.on{display:block}
-.hero{min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;padding:40px 22px 60px;position:relative;overflow:hidden;
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 22px 60px;position:relative;overflow:hidden;
  background:radial-gradient(ellipse at 70% 30%,rgba(255,168,38,.55),transparent 55%),radial-gradient(ellipse at 20% 80%,rgba(227,38,46,.35),transparent 50%),
  linear-gradient(180deg,#1b0f05 0%,#3a1a06 35%,#0b0705 100%)}
 .hero::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 2px,transparent 2px 4px);pointer-events:none}
 .soleil{position:absolute;right:-60px;top:60px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,#FFE07a,#FF8A1f 55%,transparent 70%);filter:blur(4px);opacity:.8}
 .hero h1{font-size:clamp(54px,13vw,150px);position:relative}
 .hero .bandeau{font-size:clamp(26px,6vw,58px);margin-top:10px;position:relative}
-.hero p{max-width:540px;margin:26px 0;font-size:17px;color:#e8e1d4;position:relative}
-.hero .cta{display:flex;gap:12px;flex-wrap:wrap;position:relative}
+.hero p{max-width:600px;margin:22px auto 26px;font-size:17px;color:#e8e1d4;position:relative}
+.hero .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;position:relative}
+.pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:22px;position:relative}
+.pill{font-weight:800;font-size:13px;padding:6px 14px;border-radius:8px;border:1.5px solid #fff;background:rgba(0,0,0,.35)}
+.pill.j{background:var(--jaune);color:var(--noir);border-color:var(--jaune)}
+.page-haut{padding-top:84px}
+.luts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.lut{background:var(--noir2);border:1px solid #26262b;overflow:hidden;display:flex;flex-direction:column}
+.lut .ap{height:170px;position:relative;display:flex}
+.lut .ap i{flex:1}
+.lut .ap span{position:absolute;bottom:10px;font-size:11px;font-weight:800;background:rgba(0,0,0,.6);padding:3px 8px;border-radius:4px}
+.lut .ap span.a{left:10px}.lut .ap span.b{right:10px}
+.lut .ap::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:#fff}
+.lut .c{padding:20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.lut h3{font-family:Anton;text-transform:uppercase;font-size:24px}
+.lut p{color:#c8c2b6;font-size:14px;flex:1}
+.lut .montant{font-weight:900;font-size:26px;color:var(--jaune)}
+#contactForm .champs{display:flex;flex-direction:column;gap:14px}#contactForm label{display:flex;flex-direction:column;gap:6px;font-weight:600;font-size:14px}
+.contact{display:grid;grid-template-columns:1fr 1.3fr;gap:40px}
+.reseaux a{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--noir2);border:1px solid #26262b;margin-bottom:10px;font-weight:700}
+.reseaux a:hover{border-color:var(--jaune);color:var(--jaune)}
+.reseaux svg{width:22px;height:22px}
+@media(max-width:720px){.contact{grid-template-columns:1fr}}
 .wrap{max-width:1100px;margin:0 auto;padding:70px 20px}
 .sec-t{font-size:clamp(36px,7vw,64px);margin-bottom:8px}
 .sous{color:var(--gris);margin-bottom:36px;max-width:620px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px;position:relative}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px;position:relative;text-align:left}
 .stat{border-left:3px solid var(--rouge);padding-left:12px}
 .stat b{font-family:Anton;font-size:30px;color:var(--jaune);display:block}
 .stat small{color:#cfc7b8;font-size:12px}
@@ -129,20 +180,38 @@ textarea{min-height:90px;resize:vertical}
 .cours p{padding:0 20px 22px;color:var(--gris);font-size:14px}
 footer{border-top:1px solid #222;padding:30px 20px;text-align:center;color:var(--gris);font-size:13px}
 footer .logo{display:block;margin-bottom:8px}
-@media(max-width:720px){.menu{gap:12px;font-size:12px}.decouvrir,.grille2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.carte.vedette{transform:none}nav .btn{display:none}}
+@media(max-width:720px){.decouvrir,.grille2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.carte.vedette{transform:none}}
 </style>
 </head>
 <body>
-<nav>
+<header class="top" id="haut">
   <a href="#accueil" class="logo">Hope<span>LAB</span></a>
-  <div class="menu">
-    <a href="#accueil" data-v="accueil">Accueil</a>
-    <a href="#formations" data-v="formations">Formations</a>
-    <a href="#decouvrir" data-v="decouvrir">Découvrir</a>
-    <a href="#reserver" data-v="reserver">Réserver</a>
+  <div class="droite">
+    <div class="menu" id="menu">
+      <a href="#accueil" data-v="accueil">Accueil</a>
+      <div class="dd" data-v="formations">
+        <button type="button" onclick="location.hash='formations'">Mes formations <svg class="chev" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1.5 3.5 5 7l3.5-3.5"/></svg></button>
+        <div class="dd-list">
+          <a href="#formations">Montage &amp; Cadrage</a>
+          <a href="#formations">Maîtriser l'IA</a>
+          <a href="#formations">Filmer avec ton iPhone</a>
+          <a href="#formations">Pack modules vidéo</a>
+          <a href="#reserver">Réserver une séance</a>
+        </div>
+      </div>
+      <a href="#luts" data-v="luts">LUTS</a>
+      <a href="#decouvrir" data-v="decouvrir">Découvrir</a>
+      <a href="#contact" data-v="contact">Contact</a>
+    </div>
+    <div class="icones">
+      <a class="ico" href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+      <a class="ico" href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg></a>
+      <a class="ico" href="https://www.youtube.com/" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3-5.8 3z"/></svg></a>
+      <a class="ico panier" href="#reserver" aria-label="Réserver"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.6 12.4a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.5L22 8H6"/></svg></a>
+    </div>
+    <button class="burger" id="burger" type="button" aria-label="Ouvrir le menu"><i></i><span>Menu</span></button>
   </div>
-  <a href="#reserver" class="btn" style="font-size:14px;padding:10px 16px">Réserver</a>
-</nav>
+</header>
 
 <!-- ACCUEIL -->
 <section class="vue" id="v-accueil">
@@ -150,6 +219,7 @@ footer .logo{display:block;margin-bottom:8px}
     <div class="soleil"></div>
     <h1 class="titre">HopeLab</h1>
     <div><span class="bandeau">Apprends avec Hope</span></div>
+    <div class="pills"><span class="pill j">Présentiel</span><span class="pill">Distanciel</span><span class="pill">Modules vidéo</span></div>
     <p>Formations en <b>IA</b>, <b>montage</b> et <b>cadrage</b> par un vidéaste suivi par près de 30 000 personnes. En présentiel, à distance ou en modules vidéo, à ton rythme.</p>
     <div class="cta">
       <a href="#reserver" class="btn">Réserver ma formation</a>
@@ -213,7 +283,7 @@ footer .logo{display:block;margin-bottom:8px}
 </section>
 
 <!-- FORMATIONS / PRIX -->
-<section class="vue" id="v-formations">
+<section class="vue page-haut" id="v-formations">
   <div class="wrap">
     <h2 class="titre sec-t">Le programme</h2>
     <p class="sous">Le détail de chaque formation. Le nombre de leçons et la durée sont des exemples, à valider avec Hope.</p>
@@ -265,7 +335,7 @@ footer .logo{display:block;margin-bottom:8px}
 </section>
 
 <!-- DÉCOUVRIR -->
-<section class="vue" id="v-decouvrir">
+<section class="vue page-haut" id="v-decouvrir">
   <div class="wrap">
     <div class="decouvrir">
       <div class="portrait"><span>PHOTO DE HOPE</span></div>
@@ -286,7 +356,7 @@ footer .logo{display:block;margin-bottom:8px}
 </section>
 
 <!-- RÉSERVER -->
-<section class="vue" id="v-reserver">
+<section class="vue page-haut" id="v-reserver">
   <div class="wrap">
     <div id="formulaire">
     <h2 class="titre sec-t">Réserve ta formation</h2>
@@ -373,16 +443,73 @@ footer .logo{display:block;margin-bottom:8px}
   </div>
 </section>
 
+<!-- LUTS -->
+<section class="vue page-haut" id="v-luts">
+  <div class="wrap">
+    <h2 class="titre sec-t">Les LUTS de Hope</h2>
+    <p class="sous">Le look de ses vidéos, en un clic. Compatibles DaVinci Resolve, Premiere Pro, Final Cut et CapCut.</p>
+    <div class="luts">
+      <div class="lut"><div class="ap"><i style="background:linear-gradient(135deg,#3a2410,#c98a2e)"></i><i style="background:linear-gradient(135deg,#5c3410,#ffb84d)"></i><span class="a">Avant</span><span class="b">Après</span></div>
+        <div class="c"><h3>Golden Hour</h3><p>Les tons dorés et chauds signature de Hope.</p><div class="montant">Prix à définir</div><a href="#contact" class="btn" style="font-size:15px;padding:11px 18px;text-align:center">Je veux ce LUT</a></div></div>
+      <div class="lut"><div class="ap"><i style="background:linear-gradient(135deg,#1d2b33,#7b8a8f)"></i><i style="background:linear-gradient(135deg,#0f3a44,#e0a066)"></i><span class="a">Avant</span><span class="b">Après</span></div>
+        <div class="c"><h3>Ciné Teal</h3><p>Le contraste ciné : ombres bleutées, peaux chaudes.</p><div class="montant">Prix à définir</div><a href="#contact" class="btn" style="font-size:15px;padding:11px 18px;text-align:center">Je veux ce LUT</a></div></div>
+      <div class="lut"><div class="ap"><i style="background:linear-gradient(135deg,#14141c,#4a4a5a)"></i><i style="background:linear-gradient(135deg,#1a0f2e,#e3262e)"></i><span class="a">Avant</span><span class="b">Après</span></div>
+        <div class="c"><h3>Nuit Urbaine</h3><p>Pour les plans de nuit, néons et ville.</p><div class="montant">Prix à définir</div><a href="#contact" class="btn" style="font-size:15px;padding:11px 18px;text-align:center">Je veux ce LUT</a></div></div>
+      <div class="lut"><div class="ap"><i style="background:linear-gradient(135deg,#5a5a55,#a8a59a)"></i><i style="background:linear-gradient(135deg,#6a5440,#e8cfa8)"></i><span class="a">Avant</span><span class="b">Après</span></div>
+        <div class="c"><h3>iPhone Natural</h3><p>Rattrape les images d'iPhone, rendu naturel et doux.</p><div class="montant">Prix à définir</div><a href="#contact" class="btn" style="font-size:15px;padding:11px 18px;text-align:center">Je veux ce LUT</a></div></div>
+    </div>
+    <p class="maquette">Visuels avant / après, noms et prix à remplacer par les vrais LUTS de Hope.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="vue page-haut" id="v-contact">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <h2 class="titre sec-t">Contact</h2>
+        <p class="sous">Une question sur une formation, un LUT ou une collaboration ? Écris à Hope.</p>
+        <div class="reseaux">
+          <a href="https://www.tiktok.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.7V9.1a7.3 7.3 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg>TikTok</a>
+          <a href="https://www.instagram.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a>
+          <a href="https://www.youtube.com/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3-5.8 3z"/></svg>YouTube</a>
+        </div>
+      </div>
+      <form class="form" id="contactForm" novalidate>
+        <div class="etape">
+          <div class="champs">
+            <label>Prénom et nom<input type="text" name="nom" required></label>
+            <label>Email<input type="email" name="email" required></label>
+            <label>Sujet<select name="sujet"><option>Formation</option><option>LUTS</option><option>Collaboration</option><option>Autre</option></select></label>
+            <label>Message<textarea name="msg" rows="5" required></textarea></label>
+          </div>
+        </div>
+        <button type="submit" class="btn" style="width:100%">Envoyer</button>
+        <p id="contactOk" style="display:none;margin-top:14px;color:var(--jaune);font-weight:700">Merci, ton message est bien parti. Hope te répond vite.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <footer>
   <span class="logo">Hope<span style="color:var(--jaune)">LAB</span></span>
   Formations IA · Montage · Cadrage, par Hope<br>Mentions légales · Politique de confidentialité · CGV
 </footer>
 
 <script>
-const VUES=["accueil","formations","decouvrir","reserver"];
+const VUES=["accueil","formations","luts","decouvrir","contact","reserver"];
 function route(){const h=location.hash.slice(1);const v=VUES.includes(h)?h:"accueil";
  document.querySelectorAll(".vue").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
- document.querySelectorAll(".menu a").forEach(a=>a.classList.toggle("actif",a.dataset.v===v));window.scrollTo(0,0);}
+ document.querySelectorAll(".menu [data-v]").forEach(a=>a.classList.toggle("actif",a.dataset.v===v));
+ document.body.classList.remove("menu-ouvert");majBurger();window.scrollTo(0,0);majHaut();}
+const haut=document.getElementById("haut"),burger=document.getElementById("burger");
+function majHaut(){const v=location.hash.slice(1);haut.classList.toggle("plein",scrollY>40||(VUES.includes(v)&&v!=="accueil"));}
+function majBurger(){const o=document.body.classList.contains("menu-ouvert");burger.querySelector("span").textContent=o?"Fermer":"Menu";}
+burger.onclick=()=>{document.body.classList.toggle("menu-ouvert");majBurger();};
+document.querySelectorAll(".menu a").forEach(a=>a.addEventListener("click",()=>{document.body.classList.remove("menu-ouvert");majBurger();}));
+addEventListener("scroll",majHaut,{passive:true});
+document.getElementById("contactForm").addEventListener("submit",e=>{e.preventDefault();const f=e.target;
+ if(!f.checkValidity()){f.reportValidity();return;}document.getElementById("contactOk").style.display="block";f.reset();});
 addEventListener("hashchange",route);route();
 
 const PRIX={complet:{nom:"Montage & Cadrage",p:1000},presentiel:{nom:"Présentiel",p:800},distanciel:{nom:"Distanciel",p:150,h:true},pack:{nom:"Pack modules vidéo",p:500,pack:true}};
